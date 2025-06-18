@@ -34,7 +34,7 @@ function App() {
 
   return (
     <>
-      <div className="flex-col justify-start bg-white min-h-full text-left mx-auto rounded-lg p-8 h-screen space-y-8 max-w-3xl sm:mt-4 sm:mb-4 sm:space-y-12">
+      <div className="flex-col justify-start bg-white text-left mx-auto rounded-lg p-8 min-h-screen space-y-8 max-w-3xl sm:mt-4 sm:mb-4 sm:space-y-12 overflow-y-auto">
         <div className="w-full h-fit">
           <h1 className="text-4xl font-bold text-blue-950">
             Convertisseur de devises

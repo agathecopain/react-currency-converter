@@ -2,9 +2,9 @@ import React from "react";
 
 const CurrencyList = ({ data, selected, onSelect }) => {
   return (
-    <div className="grid gap-2 ">
+    <div className="flex-col gap-1.5">
       <h2>Sélectionner une devise</h2>
-      <ul className="max-h-46 overflow-y-auto border rounded-md">
+      <ul className="max-h-46 overflow-y-auto border rounded-md w-full">
         {data.map((item) => (
           <li
             key={item.code}

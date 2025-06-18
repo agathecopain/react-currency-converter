@@ -6,14 +6,17 @@ import Search from "./components/Search";
 import Result from "./components/Result";
 
 function App() {
-  const [currency, setCurrency] = useState([]);
+  const [currencies, setCurrencies] = useState([]);
+  const [amount, setAmount] = useState(0);
+  const [searchText, setSearchText] = useState("");
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
   //fonction qui récupère les taux de change
   useEffect(() => {
     fetch("https://grippy.learn.pierre-godino.com/api/mock/react-converter")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setCurrency(Object.values(data.rates));
+        setCurrencies(Object.values(data.rates));
       })
       .catch((error) => {
         console.error(
@@ -23,22 +26,16 @@ function App() {
       });
   }, []);
 
-  console.log(currency);
+  console.log(currencies);
 
-  const [amount, setAmount] = useState(0);
-  const [searchText, setSearchText] = useState("");
-  const [filteredCurrency, setFilteredCurrency] = useState([]);
-  const [selectedCurrency, setSelectedCurrency] = useState(null);
-  const [result, setResult] = useState(0);
-
-  useEffect(() => {
-    setFilteredCurrency(currency);
-  }, [currency]);
+  const filteredCurrencies = [...currencies].filter((el) =>
+    el.description.toLowerCase().includes(searchText)
+  );
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-10 justify-start bg-white w-2xl min-h-full text-left mx-auto rounded-lg mt-5 p-8">
-        <div className="">
+      <div className="flex-col justify-start bg-white min-h-full text-left mx-auto rounded-lg p-8 h-screen space-y-8 max-w-3xl sm:mt-4 sm:mb-4 sm:space-y-12">
+        <div className="w-full h-fit">
           <h1 className="text-4xl font-bold text-blue-950">
             Convertisseur de devises
           </h1>
@@ -48,20 +45,14 @@ function App() {
         <Search
           search={searchText}
           onSearch={setSearchText}
-          data={currency}
-          onFiltered={setFilteredCurrency}
+          data={currencies}
         />
         <CurrencyList
-          data={filteredCurrency}
+          data={filteredCurrencies}
           onSelect={setSelectedCurrency}
           selected={selectedCurrency}
         />
-        <Result
-          convertion={result}
-          currencyName={selectedCurrency}
-          onConvert={setResult}
-          amount={amount}
-        />
+        <Result currencyName={selectedCurrency} amount={amount} />
       </div>
     </>
   );

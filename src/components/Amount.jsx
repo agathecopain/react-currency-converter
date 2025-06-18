@@ -5,14 +5,14 @@ const Amount = ({ amount, amountChange }) => {
     amountChange(e.target.value);
   };
   return (
-    <div className="grid gap-2">
+    <div className="flex-col gap-1.5">
       <h2>Montant</h2>
       <input
         name="amount"
         type="number"
         min={0}
         value={amount}
-        className="p-2.5 text-lg border border-gray-500 rounded-lg"
+        className="p-2.5 text-lg border border-gray-500 rounded-lg w-full"
         onChange={handleChange}
       />
     </div>
